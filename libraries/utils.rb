@@ -27,14 +27,14 @@ module OracleUtils
     # When using the metaprogramming magic we receive two arguments
     # instead of one for the constructor. Ignoring the first one and 
     # just extracting the node.
-    @node = run_context.node.to_hash
+    @n = run_context.node.to_hash
   end
 
   def install_alternatives
     bin_path = '/usr/bin/sqlplus'
-    client_arch = @node['kernel']['machine'] == 'x86_64' ? 'client64' : 'client'
-    Chef::Log.debug "OracleUtils: node[oracle-instantclient][version] is #{@node['oracle-instantclient']['version']}"
-    alt_path = "/usr/lib/oracle/#{@node['oracle-instantclient']['version']}/#{client_arch}/bin/sqlplus"
+    client_arch = @n['kernel']['machine'] == 'x86_64' ? 'client64' : 'client'
+    Chef::Log.debug "OracleUtils: node[oracle-instantclient][version] is #{@n['oracle-instantclient']['version']}"
+    alt_path = "/usr/lib/oracle/#{@n['oracle-instantclient']['version']}/#{client_arch}/bin/sqlplus"
     install_cmd = "update-alternatives --install #{bin_path} sqlplus #{alt_path} 1000"
     Chef::Log.debug install_cmd
     alternative_exists = shell_out("update-alternatives --display sqlplus | grep #{alt_path}").exitstatus == 0
