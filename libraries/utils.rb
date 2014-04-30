@@ -23,13 +23,6 @@ include Chef::Mixin::ShellOut
 
 # Helper methods for managing sqlplus
 module OracleUtils
-  def initialize(operation, run_context)
-    # When using the metaprogramming magic we receive two arguments
-    # instead of one for the constructor. Ignoring the first one and 
-    # just extracting the node.
-    @n = run_context.node.to_hash
-  end
-
   def install_alternatives
     bin_path = '/usr/bin/sqlplus'
     client_arch = @n['kernel']['machine'] == 'x86_64' ? 'client64' : 'client'

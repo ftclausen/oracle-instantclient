@@ -52,6 +52,7 @@ end
 ruby_block 'update-alternatives' do
   block do
     Chef::Resource::RubyBlock.send(:include, Chef::Recipe::OracleUtils)
+    @n = node.to_hash
     install_alternatives
   end
 end
